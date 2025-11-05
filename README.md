@@ -1,11 +1,11 @@
 # GAT562
-GAT562 Mesh Trial Tracker
+GAT562 Mesh family 设计文件
 
-GAT562 Mesh Trial Tracker是基于nRF52840和SX1262设计的通讯定位终端，支持LoRa和蓝牙5.0。集成电源接口(5V USB、2500mA锂电池），内置1.3英寸TFT显示屏和GPS模块，具有强大的远程通信能力、可扩展性和低功耗设计。
+GAT562 Mesh family是基于nRF52840和SX1262设计的通讯定位终端，支持LoRa和蓝牙5.0。集成电源，内置1.3英寸TFT显示屏和GPS模块，具有强大的远程通信能力、可扩展性和低功耗设计。
 
-GAT562 Mesh Trial Tracker与Meshtastic完全兼容，可以在Meshtastic网络中更新体验最新的功能。Meshtastic是一个社区驱动的开源项目，它允许在没有任何现有或可靠通信基础设施的地区合理的使用LoRa无线电进行远程离网通信。
+GAT562 Mesh family与Meshtastic/meshcore完全兼容，可以在Meshtastic/meshcore网络中更新体验最新的功能。Meshtastic/meshcore是一个社区驱动的开源项目，它允许在没有任何现有或可靠通信基础设施的地区合理的使用LoRa无线电进行远程离网通信。
 
-GAT562 Mesh Trial Tracker与RAK4631模组IO完全兼容，可以烧录RAK4631固件；
+GAT562 Mesh family与RAK4631模组IO完全兼容，可以烧录RAK4631固件；
 
 优势
 去中心化：不依赖中央服务器或基站，每个设备都可作为中继节点转发信息，网络中没有单点故障，即使部分节点出现问题，也不影响整体通信，网络的可靠性和稳定性更高。
@@ -27,9 +27,9 @@ GAT562 Mesh Trial Tracker与RAK4631模组IO完全兼容，可以烧录RAK4631固
 
 DIY说明
 
-将gerber文件整个上传至嘉立创PCB，选择FR4材质——数量（根据自身需求）——PCB厚度选择1.0mm——其他都按照默认选择下单即可完成PCB下单制作。
+将设计文件整个上传至嘉立创PCB，选择FR4材质——数量（根据自身需求）——PCB厚度选择1.0mm——其他都按照默认选择下单即可完成PCB下单制作。
 根据BOM文件购买对应规格的元器件，GAT562 mehs module需要到淘宝店铺（加特物联）下单购买，其余元器件按照BOM规格在立创商城即可下单购买。
-按照GAT562 Mesh Trial Tracker V1.3 Top贴片图进行手工焊接，焊接完成后进行组装测试，恭喜你完成了属于自己的meshtastic设备。
+按照设计文件参数进行生产，焊接完成后进行组装测试，恭喜你完成了属于自己的meshtastic设备。
 
 申明
 外壳文件为3D打印文件，未经许可禁止商用，如涉及侵权自行承担后果，我方概不负责。
