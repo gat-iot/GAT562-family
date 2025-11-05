@@ -31,6 +31,8 @@ DIY说明
 根据BOM文件购买对应规格的元器件，GAT562 mehs module需要到淘宝店铺（加特物联）下单购买，其余元器件按照BOM规格在立创商城即可下单购买。
 按照设计文件参数进行生产，焊接完成后进行组装测试，恭喜你完成了属于自己的meshtastic设备。
 
+GAT562 30S Mesh Kit 3D外壳设计文件可自行前往下载：https://makerworld.com.cn/zh/models/1718656-gat562-30kit-ji-chu-kuan-wai-ke
 申明
 外壳文件为3D打印文件，未经许可禁止商用，如涉及侵权自行承担后果，我方概不负责。
+
 
