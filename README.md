@@ -1,12 +1,12 @@
 GAT562 family介绍
 
-GAT562 family是基于GAT562 module 设计的产品系列，GAT562 module基于nRF52840和SX1262设计的一体化模块，内置nRF52840主芯片，SX1262射频芯片搭配TCXO温补有源晶振，性能稳定，接口丰富，支持LoRa和蓝牙5.0。
+GAT562 family是基于GAT562 Mesh Module 设计的产品系列，GAT562 Module基于nRF52840和SX1262设计的一体化模块，内置nRF52840主芯片，SX1262射频芯片搭配TCXO温补有源晶振，性能稳定，接口丰富，支持LoRa和蓝牙5.0。
 
-模组接口丰富，拓展性强，模组自带meshtastic固件，支持外接拓展1.3英寸TFT显示屏和GPS模块、LED、蜂鸣器、按键、摇杆等外设功能。
+GAT562 Module接口丰富，拓展性强，模组自带meshtastic固件，支持外接拓展1.3英寸TFT显示屏和GPS模块、LED、蜂鸣器、按键、摇杆等外设功能。
 
-模组低功耗，nRF52系列性能与功耗天生优势，无需额外设计，性能稳定，简单可靠。
+GAT562 Module功耗低，主芯片采用nRF52840的性能与功耗天生优势，无需额外设计，性能稳定，简单可靠。
 
-GAT562 Mesh family包含以下产品，种类齐全，形态丰富，可快速完整搭建属于自己的meshtastic网络。
+GAT562 family包含以下产品，种类齐全，形态丰富，可快速完整搭建属于自己的meshtastic网络。
 
 模组： GAT562 Mesh Module,适合产品二次开发设计； GAT562 30S Mesh Module,发射功率30dbm，性能更强，适合产品二次开发设计；
 
