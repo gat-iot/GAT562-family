@@ -79,7 +79,7 @@ GAT562 30S Mesh Kit 的 3D 外壳设计文件（STL）可在 MakerWorld 下载�
 
 - **硬件设计文件**：[gat-iot/GAT562-family](https://github.com/gat-iot/GAT562-family)
 - **Meshtastic 固件**：[meshtastic.org](https://meshtastic.org)
-- **自定义固件**（开源中文版）：[pepefrog1234/meshtastic-firmware-gat562-custom](https://github.com/pepefrog1234/meshtastic-firmware-gat562-custom)
+- **自定义固件**（开源中文版）：[gat-iot/meshtastic_fw](https://github.com/gat-iot/meshtastic_fw)
 
 ## 下一步
 
