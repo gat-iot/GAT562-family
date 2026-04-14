@@ -57,7 +57,7 @@ GAT562 30S 的快速入门流程与 GAT562 标准版基本一致，主要差异�
 
 pepefrog1234 提供了 GAT562 30S 专用 Meshtastic 固件（开源中文界面，位置发送间隔可缩短至 30 秒）：
 
-> **仓库**：[https://github.com/pepefrog1234/meshtastic-firmware-gat562-custom](https://github.com/pepefrog1234/meshtastic-firmware-gat562-custom)
+> **仓库**：[https://github.com/gat-iot/meshtastic_fw](https://github.com/gat-iot/meshtastic_fw)
 
 特点：
 - ✅ 支持中文界面
