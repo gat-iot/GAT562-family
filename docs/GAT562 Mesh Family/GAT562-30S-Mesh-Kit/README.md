@@ -40,7 +40,7 @@ GAT562 30S Mesh Kit 提供 3D 打印外壳（STL 文件），可在 MakerWorld �
 | 固件 | 来源 | 说明 |
 |------|------|------|
 | Meshtastic 官方 | 内置 | 英文界面 |
-| 中文定制固件 | [pepefrog1234](https://github.com/pepefrog1234/meshtastic-firmware-gat562-custom) | 中文界面，支持 30 秒高频位置发送 |
+| 中文定制固件 | [pepefrog1234](https://github.com/gat-iot/meshtastic_fw) | 中文界面，支持 30 秒高频位置发送 |
 
 ## 相关文档
 
