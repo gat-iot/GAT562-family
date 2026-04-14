@@ -29,6 +29,6 @@
 ## 🔗 外部资源
 
 - [Meshtastic 官网](https://meshtastic.org)
-- [Meshtastic GitHub](https://github.com/meshtastic/firmware)
+- [Meshtastic GitHub](https://github.com/gat-iot/meshtastic_fw)
 - [GAT562 GitHub](https://github.com/gat-iot/GAT562-family)
 - [RAK4631 官方文档](./RAK4631/)（硬件兼容参考）
