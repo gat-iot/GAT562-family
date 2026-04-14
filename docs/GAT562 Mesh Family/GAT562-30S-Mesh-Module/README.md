@@ -28,4 +28,4 @@ GAT562 30S Mesh Module 是 GAT562 系列的高功率增强版本，LoRa 发射�
 
 - GitHub: [gat-iot/GAT562-family](https://github.com/gat-iot/GAT562-family)
 - Meshtastic: [meshtastic.org](https://meshtastic.org)
-- 自定义固件: [pepefrog1234/meshtastic-firmware-gat562-custom](https://github.com/pepefrog1234/meshtastic-firmware-gat562-custom)
+- 自定义固件: [gat-iot/meshtastic_fw](https://github.com/gat-iot/meshtastic_fw)
