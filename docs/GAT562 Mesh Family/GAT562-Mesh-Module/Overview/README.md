@@ -114,7 +114,7 @@ GAT562 Mesh Module 基于与 RAK4631 相同的核心硬件平台（nRF52840 + SX
 ## 资源链接
 
 - **Meshtastic 官方**：[https://meshtastic.org](https://meshtastic.org)
-- **Meshtastic 固件**：[https://github.com/meshtastic/firmware](https://github.com/meshtastic/firmware)
+- **Meshtastic 固件**：[https://github.com/gat-iot/meshtastic_fw](https://github.com/gat-iot/meshtastic_fw)
 - **GAT562 GitHub**：[https://github.com/gat-iot/GAT562-family](https://github.com/gat-iot/GAT562-family)
 - **RAK4631 文档**：[RAK4631 WisBlock Core](/RAKWireless/rakwireless-docs/blob/master/docs/Product-Categories/WisBlock/RAK4631/README.md)
 
