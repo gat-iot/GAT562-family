@@ -38,7 +38,7 @@ GAT562 Mesh family与RAK4631模组IO完全兼容，可以烧录RAK4631固件；
 
 用户界面友好：设计了直观、简洁的用户界面，即使是非技术人员也能快速上手，方便用户进行设备配置、信息发送、位置共享等操作。
 
-GAT562 30S Mesh Kit 3D外壳设计文件可自行前往下载：https://makerworld.com.cn/zh/models/1718656-gat562-30kit-ji-chu-kuan-wai-ke
+GAT562 30S Mesh Kit 3D外壳设计文件可自行前往下载：[https://makerworld.com.cn/zh/models/1718656-gat562-30kit-ji-chu-kuan-wai-ke](https://makerworld.com.cn/zh/models/1753346-gat562-22s-30swai-ke#profileId-1932721)
 
 申明 外壳文件为3D打印文件，未经许可禁止商用，如涉及侵权自行承担后果，我方概不负责。
 
