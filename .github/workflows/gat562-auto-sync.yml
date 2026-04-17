@@ -1,0 +1,282 @@
+name: GAT562 Auto Sync & Build
+
+on:
+  schedule:
+    # 每天 UTC 时间 2:00 (北京时间 10:00) 检查上游更新
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      force_rebuild:
+        description: "Force rebuild even if no upstream changes"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+permissions:
+  contents: write
+  actions: read
+
+env:
+  UPSTREAM_REPO: meshtastic/firmware
+  UPSTREAM_BRANCH: develop
+  GAT562_BRANCH: gat562-develop
+
+jobs:
+  sync-and-build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout GAT562 branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.GAT562_BRANCH }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "GAT-IoT Bot"
+          git config user.email "farce.chen@gat-iot.com"
+
+      - name: Fetch upstream
+        run: |
+          git remote add upstream https://github.com/${{ env.UPSTREAM_REPO }}.git
+          git fetch upstream ${{ env.UPSTREAM_BRANCH }}
+
+      - name: Check for upstream changes
+        id: check_changes
+        run: |
+          LOCAL=$(git rev-parse HEAD)
+          UPSTREAM=$(git rev-parse upstream/${{ env.UPSTREAM_BRANCH }})
+          echo "Local: $LOCAL"
+          echo "Upstream: $UPSTREAM"
+          
+          if [ "$LOCAL" = "$UPSTREAM" ] && [ "${{ github.event.inputs.force_rebuild }}" != "true" ]; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No upstream changes, skipping build."
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Upstream has changes or force rebuild requested."
+          fi
+
+      - name: Sync with upstream
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git merge upstream/${{ env.UPSTREAM_BRANCH }} --no-edit || {
+            echo "::error::Merge conflict detected! Manual resolution required."
+            git merge --abort
+            exit 1
+          }
+
+      - name: Apply GAT562 patches
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          # Apply GAT562 custom patches stored in gat562-patches/
+          for patch in gat562-patches/*.patch; do
+            if [ -f "$patch" ]; then
+              echo "Applying $patch..."
+              if git apply --check "$patch" 2>/dev/null; then
+                git apply "$patch"
+                echo "  OK: $patch applied"
+              else
+                echo "  WARNING: $patch has conflicts, trying with 3-way merge..."
+                if git apply --3way "$patch"; then
+                  echo "  OK: $patch applied (with 3-way merge)"
+                else
+                  echo "  ERROR: $patch failed to apply!"
+                  exit 1
+                fi
+              fi
+            fi
+          done
+
+      - name: Push GAT562 branch
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git push origin ${{ env.GAT562_BRANCH }}
+
+      - name: Get firmware version
+        if: steps.check_changes.outputs.has_changes == 'true'
+        id: version
+        run: |
+          chmod +x bin/buildinfo.py
+          echo "long=$(./bin/buildinfo.py long)" >> $GITHUB_OUTPUT
+          echo "short=$(./bin/buildinfo.py deb)" >> $GITHUB_OUTPUT
+        env:
+          BUILD_LOCATION: local
+
+      - name: Set up Python
+        if: steps.check_changes.outputs.has_changes == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+          cache: "pip"
+
+      - name: Install PlatformIO
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: pip install -U platformio
+
+      # ===== Build all GAT562 targets =====
+      - name: Build gat562_mesh_trial_tracker
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: pio run -e gat562_mesh_trial_tracker
+        env:
+          PLATFORMIO_AUTOUPDATE: "false"
+
+      - name: Build gat562_mesh_tracker_pro
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: pio run -e gat562_mesh_tracker_pro
+        env:
+          PLATFORMIO_AUTOUPDATE: "false"
+
+      - name: Build gat562_mesh_tracker_pro_gitfos
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: pio run -e gat562_mesh_tracker_pro_gitfos
+        env:
+          PLATFORMIO_AUTOUPDATE: "false"
+
+      - name: Build gat562_mesh_tracker_pro_30S
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: pio run -e gat562_mesh_tracker_pro_30S
+        env:
+          PLATFORMIO_AUTOUPDATE: "false"
+
+      - name: Build gat562_mesh_tracker_pro_30S_gitfos
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: pio run -e gat562_mesh_tracker_pro_30S_gitfos
+        env:
+          PLATFORMIO_AUTOUPDATE: "false"
+
+      - name: Build gat562_mesh_watch
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: pio run -e gat562_mesh_watch
+        env:
+          PLATFORMIO_AUTOUPDATE: "false"
+
+      - name: Build gat562_mesh_evb_pro
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: pio run -e gat562_mesh_evb_pro
+        env:
+          PLATFORMIO_AUTOUPDATE: "false"
+
+      - name: Build gat562_mesh_solar_relay
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: pio run -e gat562_mesh_solar_relay
+        env:
+          PLATFORMIO_AUTOUPDATE: "false"
+
+      # ===== Package firmware bundles =====
+      - name: Package all firmware
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          VERSION="${{ steps.version.outputs.long }}"
+          SHORT_VER="${{ steps.version.outputs.short }}"
+          DIST_DIR="dist/gat562-firmware-${VERSION}"
+          mkdir -p "$DIST_DIR"
+          
+          TARGETS=(
+            gat562_mesh_trial_tracker
+            gat562_mesh_tracker_pro
+            gat562_mesh_tracker_pro_gitfos
+            gat562_mesh_tracker_pro_30S
+            gat562_mesh_tracker_pro_30S_gitfos
+            gat562_mesh_watch
+            gat562_mesh_evb_pro
+            gat562_mesh_solar_relay
+          )
+          
+          for target in "${TARGETS[@]}"; do
+            BUILD_DIR=".pio/build/${target}"
+            if [ -d "$BUILD_DIR" ]; then
+              TARGET_DIST="${DIST_DIR}/${target}"
+              mkdir -p "$TARGET_DIST"
+              
+              # Copy firmware files
+              cp "${BUILD_DIR}/firmware.bin" "${TARGET_DIST}/" 2>/dev/null || true
+              cp "${BUILD_DIR}/firmware.uf2" "${TARGET_DIST}/" 2>/dev/null || true
+              cp "${BUILD_DIR}/firmware.hex" "${TARGET_DIST}/" 2>/dev/null || true
+              cp "${BUILD_DIR}/littlefs.bin" "${TARGET_DIST}/" 2>/dev/null || true
+              cp "${BUILD_DIR}/firmware.elf" "${TARGET_DIST}/" 2>/dev/null || true
+              
+              # Generate manifest for this target
+              if [ -f "${BUILD_DIR}/firmware.bin" ]; then
+                MD5=$(md5sum "${BUILD_DIR}/firmware.bin" | cut -d' ' -f1)
+                SIZE=$(stat -c%s "${BUILD_DIR}/firmware.bin" 2>/dev/null || stat -f%z "${BUILD_DIR}/firmware.bin")
+                echo "{\"target\":\"${target}\",\"version\":\"${VERSION}\",\"md5\":\"${MD5}\",\"bytes\":${SIZE}}" > "${TARGET_DIST}/manifest.json"
+              fi
+              
+              echo "Packaged: ${target}"
+            else
+              echo "WARNING: Build directory not found for ${target}"
+            fi
+          done
+          
+          # Create zip
+          cd dist
+          zip -r "gat562-firmware-${VERSION}.zip" "gat562-firmware-${VERSION}/"
+          echo "ZIP_SIZE=$(stat -c%s "gat562-firmware-${VERSION}.zip" 2>/dev/null || stat -f%z "gat562-firmware-${VERSION}.zip")" >> $GITHUB_ENV
+
+      - name: Upload firmware artifacts
+        if: steps.check_changes.outputs.has_changes == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gat562-firmware-${{ steps.version.outputs.long }}
+          path: dist/gat562-firmware-${{ steps.version.outputs.long }}.zip
+          retention-days: 90
+
+      - name: Create GitHub Release
+        if: steps.check_changes.outputs.has_changes == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "gat562-v${{ steps.version.outputs.long }}"
+          name: "GAT562 Firmware v${{ steps.version.outputs.long }}"
+          body: |
+            ## GAT562 Mesh Family Firmware
+            
+            **基于 Meshtastic 固件版本**: `${{ steps.version.outputs.long }}`
+            
+            ### 包含型号
+            | 型号 | 说明 |
+            |------|------|
+            | gat562_mesh_trial_tracker | 试用追踪器 |
+            | gat562_mesh_tracker_pro | Tracker Pro（摇杆） |
+            | gat562_mesh_tracker_pro_gitfos | Pro GITFOS OEM版 |
+            | gat562_mesh_tracker_pro_30S | 30S 高功率版 |
+            | gat562_mesh_tracker_pro_30S_gitfos | 30S GITFOS OEM版 |
+            | gat562_mesh_watch | Mesh 手表 |
+            | gat562_mesh_evb_pro | EVB Pro 开发板 |
+            | gat562_mesh_solar_relay | 太阳能中继 |
+            
+            ### 自动构建
+            此版本由 GitHub Actions 自动从 [meshtastic/firmware](${{ env.UPSTREAM_REPO }}) 同步并编译。
+          files: dist/gat562-firmware-${{ steps.version.outputs.long }}.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build summary
+        if: always() && steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          echo "## GAT562 Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "**Version**: \`${{ steps.version.outputs.long }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**Upstream**: ${{ env.UPSTREAM_REPO }}/${{ env.UPSTREAM_BRANCH }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch**: ${{ env.GAT562_BRANCH }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Targets**: 8 GAT562 variants built successfully" >> $GITHUB_STEP_SUMMARY
+
+  notify:
+    needs: sync-and-build
+    if: always()
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Notify result
+        run: |
+          if [ "${{ needs.sync-and-build.result }}" == "success" ]; then
+            echo "Build completed successfully!"
+          elif [ "${{ needs.sync-and-build.result }}" == "skipped" ]; then
+            echo "No upstream changes, build skipped."
+          else
+            echo "Build failed! Check the workflow logs."
+          fi
