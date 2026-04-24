@@ -2,6 +2,14 @@ GAT562 family介绍
 
 GAT562 family是基于GAT562 Mesh Module 设计的产品系列，GAT562 Module基于nRF52840和SX1262设计的一体化模块，内置nRF52840主芯片，SX1262射频芯片搭配TCXO温补有源晶振，性能稳定，接口丰富，支持LoRa和蓝牙5.0。
 
+GAT562 family目前支持的系统有meshtastic、meshcore、LoRa APRS
+
+meshtastic固件对应仓库链接：https://github.com/gat-iot/meshtastic_fw
+
+meshcore固件对应官网链接：https://meshcore.co.uk/configurator/
+
+LoRa APRS固件对应仓库链接：https://richonguzman.github.io/nrf52840-web-config/index.html
+
 GAT562 Module接口丰富，拓展性强，模组自带meshtastic固件，支持外接拓展1.3英寸TFT显示屏和GPS模块、LED、蜂鸣器、按键、摇杆等外设功能。
 
 GAT562 Module功耗低，主芯片采用nRF52840的性能与功耗天生优势，无需额外设计，性能稳定，简单可靠。
