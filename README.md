@@ -4,7 +4,7 @@ GAT562 family是基于GAT562 Mesh Module 设计的产品系列，GAT562 Module�
 
 GAT562 family目前支持的系统有meshtastic、meshcore、LoRa APRS
 
-meshtastic固件对应仓库链接：https://github.com/gat-iot/meshtastic_fw
+meshtastic固件对应仓库链接：https://github.com/gat-iot/firmware
 
 meshcore固件对应官网链接：https://meshcore.co.uk/configurator/
 
