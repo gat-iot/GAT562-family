@@ -16,15 +16,13 @@ GAT562 Module功耗低，主芯片采用nRF52840的性能与功耗天生优势�
 
 GAT562 family包含以下产品，种类齐全，形态丰富，可快速完整搭建属于自己的meshtastic网络。
 
-模组： GAT562 Mesh Module,适合产品二次开发设计； GAT562 30S Mesh Module,发射功率30dbm，性能更强，适合产品二次开发设计；
-
 开发板 GAT562 Mesh EVB Pro，适合产品快速验证与使用； GAT562 30S Board,适合产品快速验证与使用；
 
 手持终端 GAT562 Mesh Tracker Pro，适合随身使用； GAT562 30S Mesh Kit， 发射功率30dbm，性能更强，适合贴身使用；
 
 手表终端 GAT562 Mesh watch,适合随身使用；
 
-中继： GAT562 Mesh solar relay（低成本优势）,适合楼顶或者户外中继，与终端终端互联互通，接力更远传输距离； GAT562 Mesh Solar rakay Pro（高性能优势），适合楼顶或者户外中继，与终端终端互联互通，接力更远传输距离； GAT562 30S Mesh Solar rakay Pro（高性能,高功率优势），适合楼顶或者户外中继，与终端终端互联互通，接力更远传输距离；
+中继： GAT562 Mesh solar relay（低成本优势）,适合楼顶或者户外中继，与终端终端互联互通，接力更远传输距离； GAT562 Mesh Solar rakay Pro（高性能优势），适合楼顶或者户外中继，与终端终端互联互通，接力更远传输距离； GAT562 Mesh Solar ralay Pro（高性能,高功率优势），适合楼顶或者户外中继，与终端终端互联互通，接力更远传输距离；
 
 GAT562 Mesh family与Meshtastic/meshcore完全兼容，可以在Meshtastic/meshcore网络中更新体验最新的功能。Meshtastic/meshcore是一个社区驱动的开源项目，它允许在没有任何现有或可靠通信基础设施的地区合理的使用LoRa无线电进行远程离网通信。
 
@@ -50,4 +48,3 @@ GAT562 30S Mesh Kit 3D外壳设计文件可自行前往下载：[https://makerwo
 
 申明 外壳文件为3D打印文件，未经许可禁止商用，如涉及侵权自行承担后果，我方概不负责。
 
-如需更新固件，请发邮件至farce.chen@foxmail.com索取，感谢理解和支持。
