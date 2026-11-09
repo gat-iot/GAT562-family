@@ -12,7 +12,7 @@ GAT562 family目前支持的系统有meshtastic、meshcore、LoRa APRS
 
 meshtastic固件对应仓库链接：https://github.com/gat-iot/firmware
 
-meshcore固件对应官网链接：https://meshcore.co.uk/configurator/
+meshcore固件对应仓链接：https://github.com/gat-iot/MeshCore
 
 LoRa APRS固件对应仓库链接：https://richonguzman.github.io/nrf52840-web-config/index.html
 
